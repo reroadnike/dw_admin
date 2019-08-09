@@ -19,14 +19,18 @@ class LoginController extends Controller {
 	        if(!$res){
 	            $result = array('err'=>2,'msg'=>"账号错误");
 	        }else{
-	           if(md5($rec['password'].$res['salt']) == $res['password']){
-	                $_SESSION['admin']['id'] = $res['id'];
-	                $_SESSION['admin']['user_name'] = $res['user_name'];
-	                $_SESSION['admin']['status'] = $res['status'];
-	                $result = array('err'=>0,'msg'=>"登陆成功");
-	           }else{
-	                $result = array('err'=>1,'msg'=>"密码错误");
-	           }
+                if($res['status']==1) {
+    	            if(md5($rec['password'].$res['salt']) == $res['password']){
+    	                $_SESSION['admin']['id'] = $res['id'];
+    	                $_SESSION['admin']['user_name'] = $res['user_name'];
+    	                $_SESSION['admin']['status'] = $res['status'];
+    	                $result = array('err'=>0,'msg'=>"登陆成功");
+    	            }else{
+    	                $result = array('err'=>1,'msg'=>"密码错误");
+    	            }
+                }else {
+                    $result = array('err'=>1,'msg'=>"该账号已禁用");
+                }
 	        }
 		}
 	    $this->ajaxReturn($result);

@@ -11,6 +11,10 @@ class BaseController extends Controller {
 		if(empty($_SESSION['admin'])){
                 header("location:".U('Login/index'));
         }
+        $controller = CONTROLLER_NAME;
+        $action = ACTION_NAME;
+        $this->assign('controller',$controller);
+        $this->assign('action',$action);
 	}
 
 	public function _empty(){

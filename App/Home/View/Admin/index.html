@@ -1,0 +1,263 @@
+<extend name="Public/layout" />
+<block name="head">
+
+</block>
+<block name="main">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title  am-cf">管理员列表</div>
+
+
+                            </div>
+                            <div class="widget-body  am-fr">
+
+                                <div class="am-u-sm-3 am-u-md-3 am-u-lg-3">
+                                    <div class="am-form-group">
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <button type="button" onclick="location.href='addAdmin'" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="am-u-sm-6 am-u-md-3 am-u-lg-2">
+                                    <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p" style="margin-left: 630px;">
+                                        <input name="user_name" type="text" class="am-form-field " style="width:200px;">
+                                        <span class="am-input-group-btn">
+                                            <button class="am-btn search-action am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                                            <button class="am-btn reset-action am-btn-default am-btn-success tpl-table-list-field" type="button">重置</button>
+                                          </span>
+                                    </div>
+                                </div>
+
+                                <div class="am-u-sm-12">
+
+                                    <table></table>
+                                </div>
+                                <div class="am-u-lg-12 am-cf">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</block>
+ <block name="js">
+<script type="text/javascript">
+    var table = document.querySelector('table');
+    console.log(table);
+    var TGM = table.GM({
+        supportRemind: true
+        ,gridManagerName: 'test'
+        ,isCombSorting: true
+        ,height: '570px'
+        ,supportAjaxPage:true
+        ,supportSorting: true
+        ,ajax_url: '{:U("Admin/index")}'
+        ,ajax_type: 'POST'
+        ,query: {pluginId: 1}
+        ,pageSize:20
+        ,columnData: [{
+                key: 'id',
+                remind: '管理员ID',
+                width: '50px',
+                text: '管理员ID',
+                sorting: ''
+            },{
+                key: 'user_name',
+                remind: '名称',
+                width: '100px', 
+                text: '名称',
+                sorting: ''
+            },{
+                key: 'add_time',
+                remind: '加入时间',
+                width: '100px', 
+                text: '加入时间',
+                sorting: ''
+            },{
+                key: 'status',
+                remind: '状态',
+                width: '50px',
+                text: '状态',
+                template: function(status, rowObject){
+                    if(rowObject.status==1){
+                        return '<div class="tpl-switch">'
+                                    +'<input type="checkbox" onclick="change_status(2,'+rowObject.id+',this)" checked name="status" class="ios-switch bigswitch tpl-switch-btn">'
+                                    +'<div class="tpl-switch-btn-view">'
+                                    +'<div>'
+                                +'</div>'
+                    }else{
+                        return '<div class="tpl-switch">'
+                                    +'<input type="checkbox" onclick="change_status(1,'+rowObject.id+',this)"   name="status" class="ios-switch bigswitch tpl-switch-btn">'
+                                    +'<div class="tpl-switch-btn-view">'
+                                    +'<div>'
+                                +'</div>'
+                    }
+
+                }
+            },{
+                key: 'action',
+                remind: '操作按钮',
+                width: '100px',
+                text: '操作',
+                template: function(action, rowObject){
+                    return '<button type="button" class="am-btn am-btn-danger" style="color:#fff; padding:5px; margin-left:5px;"  onclick="del('+rowObject.id+',\''+rowObject.user_name+'\')">删除</button>'
+
+                }
+            }
+            /*{
+                key: 'action',
+                remind: '操作按钮',
+                width: '100px',
+                text: '操作',
+                template: function(action, rowObject){
+                    return '<button type="button" class="am-btn am-btn-secondary" style="color:#fff; padding:5px; margin-left:5px;" onclick="edit('+rowObject.id+')">编辑</button>'
+
+                        +'<button type="button" class="am-btn am-btn-danger" style="color:#fff; padding:5px; margin-left:5px;"  onclick="del('+rowObject.id+')">删除</button>'
+
+                }
+            }*/
+        ]
+        // 分页前事件
+        ,pagingBefore: function(query){
+            console.log('pagingBefore', query);
+        }
+        // 分页后事件
+        ,pagingAfter: function(data){
+            console.log('pagingAfter', data);
+        }
+        // 排序前事件
+        ,sortingBefore: function (data) {
+            console.log('sortBefore', data);
+        }
+        // 排序后事件
+        ,sortingAfter: function (data) {
+            console.log('sortAfter', data);
+        }
+        // 宽度调整前事件
+        ,adjustBefore: function (event) {
+            console.log('adjustBefore', event);
+        }
+        // 宽度调整后事件
+        ,adjustAfter: function (event) {
+            console.log('adjustAfter', event);
+        }
+        // 拖拽前事件
+        ,dragBefore: function (event) {
+            console.log('dragBefore', event);
+        }
+        // 拖拽后事件
+        ,dragAfter: function (event) {
+            console.log('dragAfter', event);
+        }
+    }, function(query){
+        // 渲染完成后的回调函数
+        console.log(query);
+    });
+
+    console.log('GirdManger version => ', TGM.version)
+    // 日期格式化,不是插件的代码,只用于处理时间格式化
+    Date.prototype.format = function(fmt){
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "D+": this.getDate(), //日
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/([Y,y]+)/.test(fmt)){
+            fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for (var k in o){
+            if(new RegExp("(" + k + ")").test(fmt)){
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            }
+        }
+        return fmt;
+    };
+
+    // 绑定搜索事件
+    document.querySelector('.search-action').addEventListener('click', function () {
+        var _query = {
+            user_name: document.querySelector('[name="user_name"]').value,
+        };
+        table.GM('setQuery', _query).GM('refreshGrid', function () {
+            console.log('搜索成功...');
+        });
+    });
+
+    // 绑定重置
+    document.querySelector('.reset-action').addEventListener('click', function () {
+         var _query = {
+            user_name:document.querySelector('[name="user_name"]').value = '',
+        };
+         table.GM('setQuery', _query).GM('refreshGrid', function () {
+            console.log('重置成功...');
+        });
+
+    });
+
+
+
+    function change_status(val,id,obj){
+        $.post('{:U("Admin/changeStatus")}',{
+            status:val,
+            id:id
+        },function(res){
+            if(res.err==0){
+                layer.msg(res.msg,{time:500},function(){
+                    if(val){
+                        $(obj).attr('onclick',"change_status(1,"+id+",this)")
+                    }else{
+                        $(obj).attr('onclick',"change_status(2,"+id+",this)")
+                    }
+                });
+
+            }else{
+                layer.msg(res.msg);
+            }
+        })
+    }
+
+
+
+    //删除
+    function del(id,name){
+        console.log(name)
+        layer.confirm('确定删除账号('+name+')？', {
+          btn: ['确认', '取消']
+          ,btn3: function(index, layero){
+          }
+        }, function(index, layero){
+            $.post('{:U("Admin/delAdmin")}',{
+                id:id
+            },function(res){
+                if(res.err==0){
+                    layer.msg(res.msg,{time:500},function(){table.GM('refreshGrid');});
+                }else{
+                    layer.msg(res.msg);
+                }
+            })
+        }, function(index){
+          
+        });
+
+
+    }
+
+</script>
+</block>

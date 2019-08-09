@@ -230,7 +230,7 @@
 
 
                     <li class="sidebar-nav-link">
-                        <if condition="($controller eq 'News')">
+                        <if condition="($controller eq 'Admin')">
                             <a href="javascript:;" class="sidebar-nav-sub-title active">
                         <else/>
                             <a href="javascript:;" class="sidebar-nav-sub-title">
@@ -239,19 +239,27 @@
 
                             <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                         </a>
-                        <if condition="($controller eq 'News')">
+                        <if condition="($controller eq 'Admin')">
                             <ul class="sidebar-nav sidebar-nav-sub" style="display: block">
                          <else/>
                             <ul class="sidebar-nav sidebar-nav-sub" style="display: none">
                         </if>
+                        <if condition="$controller eq 'Admin' && $action eq 'index'">
+                            <li  class="am-btn-default">
+                        <else/>
                             <li class="sidebar-nav-link">
-                                <a href="javascript:;">
+                        </if>
+                                <a href="{:U('Admin/index')}">
                                     <span class="am-icon-folder sidebar-nav-link-logo"></span> 管理员信息
                                 </a>
                             </li>
 
+                        <if condition="$controller eq 'Admin' && $action eq 'test'">
+                            <li  class="am-btn-default">
+                        <else/>
                             <li class="sidebar-nav-link">
-                                <a href="javascript:;">
+                        </if>
+                                <a href="{:U('Admin/test')}">
                                     <span class="am-icon-file-o sidebar-nav-link-logo"></span> 测试数据
                                 </a>
                             </li>
