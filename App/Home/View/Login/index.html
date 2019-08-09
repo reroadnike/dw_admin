@@ -73,40 +73,34 @@
     <script src="__PUBLIC__/assets/js/app.js"></script>
     <script type="text/javascript">
 
-    $(function(){
-        document.onkeydown = function(e){ 
-            var ev = document.all ? window.event : e;
-            if(ev.keyCode==13) {
-
-                   $('.am-btn').click();
-
-             }
+    $(document).keyup(function(event){
+        if(event.keyCode==13) {
+            $("button").trigger("click");
         }
-        }); 
+    });
 
-
-            $('.am-btn').click(function(){
-                var user_name = $('#user_name').val();
-                if(!user_name) {
-                    layer.msg('账号不能为空');return;
-                }
-                var password = $('#password').val();
-                if(!password) {
-                    layer.msg('密码不能为空');return;
-                }
-                password = $.md5(password);
-                $.post('{:U("Login/checkLogin")}',{
-                    user_name:user_name,
-                    password:password,
-                },function(res){
-                    if(res.err==0){
-                        layer.msg(res.msg,{time: 1000},function(){location.href="/"});
-                    }else{
-                        layer.msg(res.msg);
-                    }
-                    
-                },'json');
-            });
+    $('.am-btn').click(function(){
+        var user_name = $('#user_name').val();
+        if(!user_name) {
+            layer.msg('账号不能为空');return;
+        }
+        var password = $('#password').val();
+        if(!password) {
+            layer.msg('密码不能为空');return;
+        }
+        password = $.md5(password);
+        $.post('{:U("Login/checkLogin")}',{
+            user_name:user_name,
+            password:password,
+        },function(res){
+            if(res.err==0){
+                layer.msg(res.msg,{time: 1000},function(){location.href="/"});
+            }else{
+                layer.msg(res.msg);
+            }
+            
+        },'json');
+    });
     </script>
 </body>
 

@@ -12,4 +12,9 @@ class BaseController extends Controller {
                 header("location:".U('Login/index'));
         }
 	}
+
+	public function _empty(){
+        $this->display('error/404');
+    }
+
 }
