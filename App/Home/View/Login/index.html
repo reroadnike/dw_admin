@@ -94,7 +94,7 @@
             password:password,
         },function(res){
             if(res.err==0){
-                layer.msg(res.msg,{time: 1000},function(){location.href="/"});
+                layer.msg(res.msg,{time: 1000},function(){location.href="/Home/Index/index"});
             }else{
                 layer.msg(res.msg);
             }

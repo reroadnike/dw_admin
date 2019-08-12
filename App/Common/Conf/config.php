@@ -19,10 +19,6 @@ return array(
      'DB_PREFIX'             =>  'jg_',    // 数据库表前缀
      'DB_CHARSET'   => 'utf8', // 数据库名
      "URL_MODEL" => 2,*/
-    /******************************************样式js文件路径***************************************************/
-    'TMPL_PARSE_STRING'  =>array(     
-                '__PUBLIC__' => __ROOT__.'/App/Home/Common', // 更改默认的/Public 替换规则  
-               
-    ), 
-
+     
+     'DEFAULT_MODULE'        =>  'Buss',  // 默认模块
 );
