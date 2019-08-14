@@ -230,16 +230,16 @@
 
 
                     <li class="sidebar-nav-link">
-                        <if condition="($controller eq 'Admin')">
+                        <if condition="($controller eq 'Admin' OR $controller eq 'Role')">
                             <a href="javascript:;" class="sidebar-nav-sub-title active">
                         <else/>
                             <a href="javascript:;" class="sidebar-nav-sub-title">
                         </if>
-                            <i class="am-icon-file-text sidebar-nav-link-logo"></i> 管理员
+                            <i class="am-icon-file-text sidebar-nav-link-logo"></i> 系统管理
 
                             <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                         </a>
-                        <if condition="($controller eq 'Admin')">
+                        <if condition="($controller eq 'Admin' OR $controller eq 'Role')">
                             <ul class="sidebar-nav sidebar-nav-sub" style="display: block">
                          <else/>
                             <ul class="sidebar-nav sidebar-nav-sub" style="display: none">
@@ -250,7 +250,17 @@
                             <li class="sidebar-nav-link">
                         </if>
                                 <a href="{:U('Admin/index')}">
-                                    <span class="am-icon-folder sidebar-nav-link-logo"></span> 管理员信息
+                                    <span class="am-icon-folder sidebar-nav-link-logo"></span> 管理员
+                                </a>
+                            </li>
+
+                        <if condition="$controller eq 'Role' && $action eq 'index'">
+                            <li  class="am-btn-default">
+                        <else/>
+                            <li class="sidebar-nav-link">
+                        </if>
+                                <a href="{:U('Role/index')}">
+                                    <span class="am-icon-folder sidebar-nav-link-logo"></span> 角色管理
                                 </a>
                             </li>
 
