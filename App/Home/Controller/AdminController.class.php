@@ -35,6 +35,7 @@ class AdminController extends BaseController {
             $data = D('Admin')->getAll($map,$field,$page,$pagenum);
             foreach($data as $k => $v) {
                 $data[$k]['add_time'] = date('Y-m-d H:i:s',$v['add_time']);
+                $data[$k]['last_login_time'] = date('Y-m-d H:i:s',$v['last_login_time']);
             }
             $this->ajaxReturn(array('status'=>'success','data'=>$data,'totals'=>$count));
 		} else {
@@ -65,6 +66,8 @@ class AdminController extends BaseController {
 	public function addAdmin() {
 		if(IS_POST) {
 			$data['user_name'] = I('post.user_name');
+			$data['department'] = I('post.department');
+			$data['role_id'] = I('post.role_id');
 			$data['salt'] = mt_rand(100000,999999);
 			$data['password'] = md5(md5(123456).$data['salt']);
 			$data['add_time'] = time();

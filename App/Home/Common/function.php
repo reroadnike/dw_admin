@@ -1,44 +1,25 @@
 <?php
-//id获取用户信息
-function get_user_info($id){
-    $map['id'] = $id;
-    $user_info = D('User')->get_one($map);
-    return $user_info;
-}
 
-function ll_encrypt($plaintext, $public_key) {
-    $pu_key = openssl_pkey_get_public ( $public_key );
-    $hmack_key = genLetterDigitRandom(32);
-    $version = "lianpay1_0_1";
-    $aes_key = genLetterDigitRandom(32);
-    $nonce = genLetterDigitRandom(8);
-    return lianlianpayEncrypt($plaintext, $pu_key, $hmack_key, $version, $aes_key, $nonce);
-}
-function genLetterDigitRandom($size) {
-    $allLetterDigit = array("0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
-    $randomSb = "";
-    $digitSize = count($allLetterDigit)-1;
-    for($i = 0; $i < $size; $i ++){
-        $randomSb .= $allLetterDigit[rand(0,$digitSize)];
+function get_clients_ip($type = 0) {
+    $type       =  $type ? 1 : 0;
+    static $ip  =   NULL;
+    if ($ip !== NULL) return $ip[$type];
+    if($_SERVER['HTTP_X_REAL_IP']){//nginx 代理模式下，获取客户端真实IP
+        $ip=$_SERVER['HTTP_X_REAL_IP'];     
+    }elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {//客户端的ip
+        $ip     =   $_SERVER['HTTP_CLIENT_IP'];
+    }elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {//浏览当前页面的用户计算机的网关
+        $arr    =   explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        $pos    =   array_search('unknown',$arr);
+        if(false !== $pos) unset($arr[$pos]);
+        $ip     =   trim($arr[0]);
+    }elseif (isset($_SERVER['REMOTE_ADDR'])) {
+        $ip     =   $_SERVER['REMOTE_ADDR'];//浏览当前页面的用户计算机的ip地址
+    }else{
+        $ip=$_SERVER['REMOTE_ADDR'];
     }
-    return $randomSb;
-}
-function lianlianpayEncrypt($req, $public_key, $hmack_key, $version, $aes_key, $nonce) {
-    $B64hmack_key = rsaEncrypt ( $hmack_key, $public_key );
-    $B64aes_key = rsaEncrypt ( $aes_key, $public_key );
-    $B64nonce = base64_encode($nonce);
-    $encry = aesEncrypt ( utf8_decode($req), $aes_key, $nonce);
-    $message = $B64nonce . "$" .$encry;
-    $sign = hex2bin(hash_hmac("sha256",$message,$hmack_key));
-    $B64sign = base64_encode($sign);
-    return $version . '$' . $B64hmack_key . '$' . $B64aes_key . '$' . $B64nonce . '$' . $encry . '$' . $B64sign;
-}
-
-function rsaEncrypt($data,$public_key){
-    openssl_public_encrypt ( $data, $encrypted, $public_key,OPENSSL_PKCS1_OAEP_PADDING ); // 公钥加密
-    return base64_encode ( $encrypted );
-}
-
-function aesEncrypt($data,$key,$nonce){
-    return base64_encode( openssl_encrypt ($data, "AES-256-CTR", $key, true, $nonce . "\0\0\0\0\0\0\0\1"));
+    // IP地址合法验证
+    $long = sprintf("%u",ip2long($ip));
+    $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
+    return $ip[$type];
 }

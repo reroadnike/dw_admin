@@ -24,6 +24,11 @@ class LoginController extends Controller {
     	                $_SESSION['admin']['id'] = $res['id'];
     	                $_SESSION['admin']['user_name'] = $res['user_name'];
     	                $_SESSION['admin']['status'] = $res['status'];
+                        $map = array();
+                        $map['id'] = $res['id'];
+                        $data['last_login_time'] = time();
+                        $data['ip'] = get_clients_ip();
+                        D('Admin')->update($map,$data);
     	                $result = array('err'=>0,'msg'=>"登陆成功");
     	            }else{
     	                $result = array('err'=>1,'msg'=>"密码错误");

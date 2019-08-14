@@ -25,7 +25,7 @@ class AdminModel extends RelationModel {
         return $res;
     }
 
-    //更改状态
+    //更改
     public function update($map,$data) {
         $res = $this->where($map)->save($data);
         return $res;

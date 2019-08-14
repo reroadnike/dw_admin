@@ -22,8 +22,26 @@
                                     <div class="am-form-group">
                                         <label for="user-name" class="am-u-sm-3 am-form-label">登录账号 <span class="tpl-form-line-small-title">Name</span></label>
                                         <div class="am-u-sm-9">
-                                            <input type="text" class="tpl-form-input" name="user_name" placeholder="请输入账号"> 
+                                            <input type="text" class="tpl-form-input" name="user_name" placeholder="请输入账号" style="width: 300px;"> 
                                             <small>请填写1-20字左右。</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">所属部门 <span class="tpl-form-line-small-title">Department</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="department" placeholder="请输入部门" style="width: 300px;">
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="user-phone" class="am-u-sm-3 am-form-label">角色 <span class="tpl-form-line-small-title">Cate</span></label>
+                                        <div class="am-u-sm-6">
+                                            <select style="color:#000;" name="role_id" data-am-selected="{btnWidth: '300px', btnSize: 'sm', maxHeight: 200, searchBox: 1}" style="display: block;">
+                                                <option value="0">选择角色</option>
+                                                <foreach name="role" item="v" >
+                                                <option value="{$v.id}">{$v.role_name}</option>
+                                                </foreach>
+                                            </select>
+
                                         </div>
                                     </div>
 
@@ -46,7 +64,9 @@
         //添加
         function sub(){
             var user_name = $('input[name="user_name"]').val();
-            $.post('{:U("Admin/addAdmin")}',{user_name},function(res){
+            var department = $('input[name="department"]').val();
+            var role_id = $('select[name="role_id"]').val();
+            $.post('{:U("Admin/addAdmin")}',{user_name,department,role_id},function(res){
                 if(res.err==0){
                     layer.msg(res.msg,{time:500},function(){location.href='{:U("Admin/index")}'});
                 }else{
