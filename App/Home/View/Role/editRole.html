@@ -1,0 +1,67 @@
+<extend name="Public/layout" />
+<block name="head">
+</block>
+<block name="main">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="row-content am-cf">
+                              <div class="row">
+
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class="widget-title am-fl">编辑角色</div>
+                                <div class="widget-function am-fr">
+                                    <a href="javascript:;" class="am-icon-cog"></a>
+                                </div>
+                            </div>
+                            <div class="widget-body am-fr">
+
+                                <form class="am-form tpl-form-border-form tpl-form-border-br">
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">角色名称 <span class="tpl-form-line-small-title">Name</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="role_name" value="{$info.role_name}" placeholder="请输入账号" style="width: 300px;">
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="user-name" class="am-u-sm-3 am-form-label">权限 <span class="tpl-form-line-small-title">Rule</span></label>
+                                        <div class="am-u-sm-9">
+                                            <input type="text" class="tpl-form-input" name="rule_id" value="{$info.rule_id}" placeholder="请输入部门" style="width: 300px;">
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <div class="am-u-sm-9 am-u-sm-push-3">
+                                            <button type="button" onclick="sub()" class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</block>
+ <block name="js">
+ <script type="text/javascript">
+
+    function sub() {
+        var id = "{$_GET['id']}";
+        var role_name = $('input[name="role_name"]').val();
+        var rule_id = $('input[name="rule_id"]').val();
+        $.post('{:U("Role/editRole")}',{id,role_name,rule_id},function(res) {
+                if(res.err==0){
+                    layer.msg(res.msg,{time:500},function(){location.href='{:U("Role/index")}'});
+                }else{
+                    layer.msg(res.msg);
+
+                }
+        });
+    }
+
+ </script>
+
+</block>

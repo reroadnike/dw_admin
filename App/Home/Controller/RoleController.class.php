@@ -68,4 +68,26 @@ class RoleController extends BaseController {
 			$this->ajaxReturn($result);
 		}
 	}
+
+	public function editRole() {
+		if(IS_POST) {
+			$res = I('post.');
+			$map['id'] = $res['id'];
+			$data = D('Role')->update($map,$res);
+            if($res){
+                $data = array('err'=>0,'msg'=>'修改成功！');
+            }else{
+                $data = array('err'=>1,'msg'=>'修改失败！');
+            }
+            $this->ajaxReturn($data);
+		} else {
+			$id = I('get.id');
+			$map['id'] = $id;
+			$info = D('Role')->getOne($map);
+			$this->assign('info',$info);
+			$this->display();
+
+		}
+		
+	}
 }

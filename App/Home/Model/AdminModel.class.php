@@ -8,8 +8,8 @@ use Think\Model\RelationModel;
 class AdminModel extends RelationModel {
 
     //获取多条数据
-    public function getAll($map,$field='*',$page=1,$pagenum=999999) {
-        $data = $this->where($map)->limit(($page-1)*$pagenum,$pagenum)->field($field)->select();
+    public function getAll($map,$field='*',$page=1,$pagenum=999999,$order='id asc') {
+        $data = $this->where($map)->limit(($page-1)*$pagenum,$pagenum)->field($field)->order($order)->select();
         return $data;
     }
 
