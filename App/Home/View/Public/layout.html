@@ -276,50 +276,33 @@
                         </ul>
                     </li>
 
-            
-<!--                 <if condition="(in_array('Master',$rr) OR in_array('Role',$rr) OR in_array('Regular',$rr))">
                     <li class="sidebar-nav-link">
-                        <if condition="($controller eq 'Master') OR ($controller eq 'Role') OR ($controller eq 'Regular')">
+                        <if condition="($controller eq 'Buss')">
                             <a href="javascript:;" class="sidebar-nav-sub-title active">
                         <else/>
                             <a href="javascript:;" class="sidebar-nav-sub-title">
                         </if>
+                            <i class="am-icon-file-text sidebar-nav-link-logo"></i> 商家管理
 
-
-                            <i class="am-icon-shield sidebar-nav-link-logo"></i> 权限管理
                             <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
                         </a>
-
-                        <if condition="($controller eq 'Master') OR ($controller eq 'Role') OR ($controller eq 'Regular')">
+                        <if condition="($controller eq 'Buss')">
                             <ul class="sidebar-nav sidebar-nav-sub" style="display: block">
-                        <else/>
+                         <else/>
                             <ul class="sidebar-nav sidebar-nav-sub" style="display: none">
                         </if>
-
-                        <if condition="(in_array('Master',$rr))">
+                        <if condition="$controller eq 'Buss' && $action eq 'index'">
+                            <li  class="am-btn-default">
+                        <else/>
                             <li class="sidebar-nav-link">
-                                <a href="{:U('Master/index')}">
-                                    <i class="am-icon-user sidebar-nav-link-logo"></i> 管理员
+                        </if>
+                                <a href="{:U('Buss/index')}">
+                                    <span class="am-icon-folder sidebar-nav-link-logo"></span> 商家信息
                                 </a>
                             </li>
-                        </if>
-                        <if condition="(in_array('Role',$rr))">
-                            <li class="sidebar-nav-link">
-                                <a href="{:U('Role/index')}">
-                                    <i class="am-icon-user-plus sidebar-nav-link-logo"></i> 角色
-                                </a>
-                            </li>
-                        </if>
-                        <if condition="(in_array('Regular',$rr))">
-                            <li class="sidebar-nav-link">
-                                <a href="{:U('Regular/index')}">
-                                    <i class="am-icon-shield sidebar-nav-link-logo"></i> 权限
-                                </a>
-                            </li>
-                        </if>
                         </ul>
                     </li>
-                </if> -->
+
 
             </ul>
         </div>
