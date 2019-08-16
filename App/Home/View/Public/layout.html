@@ -330,6 +330,34 @@
                         </ul>
                     </li>
 
+                    <li class="sidebar-nav-link">
+                        <if condition="($controller eq 'Order')">
+                            <a href="javascript:;" class="sidebar-nav-sub-title active">
+                        <else/>
+                            <a href="javascript:;" class="sidebar-nav-sub-title">
+                        </if>
+                            <i class="am-icon-file-text sidebar-nav-link-logo"></i> 订单管理
+
+                            <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <if condition="($controller eq 'Order')">
+                            <ul class="sidebar-nav sidebar-nav-sub" style="display: block">
+                         <else/>
+                            <ul class="sidebar-nav sidebar-nav-sub" style="display: none">
+                        </if>
+                        <if condition="$controller eq 'Order' && $action eq 'index'">
+                            <li  class="am-btn-default">
+                        <else/>
+                            <li class="sidebar-nav-link">
+                        </if>
+                                <a href="{:U('Order/index')}">
+                                    <span class="am-icon-folder sidebar-nav-link-logo"></span> 订单信息
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
             </ul>
         </div>
 
