@@ -43,7 +43,7 @@ class LoginController extends Controller {
 
 
 	public function outlogin(){
-        session('[destroy]');
+        session_destroy();
         header("location:".U('Login/index'));
     }
 
