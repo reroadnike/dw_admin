@@ -303,6 +303,32 @@
                         </ul>
                     </li>
 
+                    <li class="sidebar-nav-link">
+                        <if condition="($controller eq 'User')">
+                            <a href="javascript:;" class="sidebar-nav-sub-title active">
+                        <else/>
+                            <a href="javascript:;" class="sidebar-nav-sub-title">
+                        </if>
+                            <i class="am-icon-file-text sidebar-nav-link-logo"></i> 用户管理
+
+                            <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                        </a>
+                        <if condition="($controller eq 'User')">
+                            <ul class="sidebar-nav sidebar-nav-sub" style="display: block">
+                         <else/>
+                            <ul class="sidebar-nav sidebar-nav-sub" style="display: none">
+                        </if>
+                        <if condition="$controller eq 'User' && $action eq 'index'">
+                            <li  class="am-btn-default">
+                        <else/>
+                            <li class="sidebar-nav-link">
+                        </if>
+                                <a href="{:U('User/index')}">
+                                    <span class="am-icon-folder sidebar-nav-link-logo"></span> 用户信息
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
             </ul>
         </div>
