@@ -19,6 +19,7 @@ return array(
      'DB_PREFIX'             =>  'jg_',    // 数据库表前缀
      'DB_CHARSET'   => 'utf8', // 数据库名
      "URL_MODEL" => 2,*/
-     
-     'DEFAULT_MODULE'        =>  'Buss',  // 默认模块
+
+    'MODULE_ALLOW_LIST' => array('Home','Buss'),
+    'DEFAULT_MODULE'        =>  'Buss',  // 默认模块
 );
