@@ -20,6 +20,6 @@ return array(
      'DB_CHARSET'   => 'utf8', // 数据库名
      "URL_MODEL" => 2,*/
 
-    'MODULE_ALLOW_LIST' => array('Home','Buss'),
+    'MODULE_ALLOW_LIST' => array('Home','Buss','Apps'),//允许访问模块
     'DEFAULT_MODULE'        =>  'Buss',  // 默认模块
 );
